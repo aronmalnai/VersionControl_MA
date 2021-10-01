@@ -123,4 +123,7 @@
   <data name="Fullname" xml:space="preserve">
     <value>Vezetéknév</value>
   </data>
+  <data name="Writetofile" xml:space="preserve">
+    <value>Írás</value>
+  </data>
 </root>
