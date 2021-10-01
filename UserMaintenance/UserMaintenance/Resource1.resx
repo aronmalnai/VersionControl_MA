@@ -120,10 +120,10 @@
   <data name="Add" xml:space="preserve">
     <value>Hozzáadás</value>
   </data>
-  <data name="firstname" xml:space="preserve">
-    <value>Utónév</value>
-  </data>
-  <data name="lastname" xml:space="preserve">
+  <data name="Fullname" xml:space="preserve">
     <value>Vezetéknév</value>
+  </data>
+  <data name="Writetofile" xml:space="preserve">
+    <value>Írás</value>
   </data>
 </root>
