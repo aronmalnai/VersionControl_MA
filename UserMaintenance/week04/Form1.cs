@@ -17,15 +17,11 @@ namespace week04
 
     {
 
-
         RealEstateEntities context = new RealEstateEntities();
         List<Flat> Flats;
         Excel.Application xlApp;
         Excel.Workbook xlWb;
         Excel.Worksheet xlWs;
-
-
-
 
 
         public Form1()
@@ -35,15 +31,12 @@ namespace week04
             CreateExcel();
             CreateTable();
 
-
-
         }
 
         public void LoadData()
         {
 
-            Flats = context.Flats.ToList();
-
+           Flats = context.Flats.ToList();
 
         }
 
@@ -63,6 +56,7 @@ namespace week04
             catch (Exception ex)
             {
                 string hiba = string.Format("Error: {0}\nline: {1} ", ex.Message, ex.Source);
+                MessageBox.Show(hiba);
 
                 xlWb.Close(false, Type.Missing, Type.Missing); //ez itt miért type missing? 
                 xlApp.Quit();
@@ -110,30 +104,29 @@ namespace week04
                     else
                     { values[counter, 4] = "Nincs"; }
 
-
-                    values[counter, 4] = lakas.Elevator;
                     values[counter, 5] = lakas.NumberOfRooms;
                     values[counter, 6] = lakas.FloorArea;
                     values[counter, 7] = lakas.Price;
                     values[counter, 8] = "=H2/G2*1000000";  
-
-
-
-
-
-
-
                     counter++;
                 }
 
                 var range =  xlWs.get_Range(GetCell(2, 1), GetCell(1 + values.GetLength(0), values.GetLength(1)));
                 range.Value2 = values;
 
+                Excel.Range headerRange = xlWs.get_Range(GetCell(1, 1), GetCell(1, headers.Length));
+                headerRange.Font.Bold = true;
+                headerRange.VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                headerRange.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                headerRange.EntireColumn.AutoFit();
+                headerRange.RowHeight = 40;
+                headerRange.Interior.Color = Color.LightBlue;
+                headerRange.BorderAround2(Excel.XlLineStyle.xlContinuous, Excel.XlBorderWeight.xlThick);
+
 
             }
-
+          
         }
-
 
         private string GetCell(int x, int y)
         {
@@ -152,6 +145,8 @@ namespace week04
             return ExcelCoordinate;
         }
 
+
+  
 
     }
 }
