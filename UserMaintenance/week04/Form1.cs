@@ -20,6 +20,10 @@ namespace week04
 
         RealEstateEntities context = new RealEstateEntities();
         List<Flat> Flats;
+        Excel.Application xlApp;
+        Excel.Workbook xlWb;
+        Excel.Worksheet xlWs;
+
 
 
 
@@ -28,17 +32,56 @@ namespace week04
         {
             InitializeComponent();
             LoadData();
+            CreateExcel();
+            CreateTable();
 
-            Missing.Value;
+
 
         }
 
-        private void LoadData() 
+        public void LoadData()
         {
 
             Flats = context.Flats.ToList();
-            
+
 
         }
+
+        public void CreateExcel()
+
+        {
+            try
+            {
+                xlApp = new Excel.Application();
+                xlWb = xlApp.Workbooks.Add(Missing.Value); //létrehoztunk egy üres munkafüzetet
+                xlWs = xlWb.ActiveSheet;
+
+
+                xlApp.Visible = true; //átadjuk, láthatóvá teszzük a felhasználónak
+                xlApp.UserControl = true;
+            }
+            catch (Exception ex)
+            {
+                string hiba = string.Format("Error: {0}\nline: {1} ", ex.Message, ex.Source );
+                
+                xlWb.Close(false, Type.Missing, Type.Missing); //ez itt miért type missing? 
+                xlApp.Quit();
+                xlApp = null;
+            }
+            //finally //cath hiba esetén is lefut
+            //{ 
+                
+            //}
+         
+        }
+
+        public void CreateTable()
+        {
+
+
+
+        }
+
+
     }
 }
