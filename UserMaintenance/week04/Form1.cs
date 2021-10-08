@@ -7,10 +7,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Excel = Microsoft.Office.Interop.Excel;
+using System.Reflection;
 
 namespace week04
 {
-    public partial class Form1 : RealEstateEntities
+    public partial class Form1 : Form
 
 
     {
@@ -26,11 +28,12 @@ namespace week04
         {
             InitializeComponent();
             LoadData();
-            //using Excel = Microsoft.Office.Interop.Excel;
-            //using system.Reflection;
+
+            Missing.Value;
+
         }
 
-        private void LoadData()
+        private void LoadData() 
         {
 
             Flats = context.Flats.ToList();
