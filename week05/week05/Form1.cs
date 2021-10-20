@@ -26,45 +26,7 @@ namespace week05
             CreatePortfolio();
             ticks = context.Ticks.ToList(); // A context-et bele rakjuk a ticks listába
                                             //a. Portfóliónk elemszáma:
-            int elemszám = portfoliolista.Count();
-            //A Count() bálrmilyen megszámlálható listára alkalmazható.
-
-            //b. A portfólióban szereplő részvények darabszáma: 
-            decimal részvényekSzáma = (from x in portfoliolista select x.volume).Sum();
-            MessageBox.Show(string.Format("Részvények száma: {0}", részvényekSzáma));
-            //Először egy listába kigyűjtjük csak a darabszámokat, majd az egész bezárójlezett listát summázzuk. 
-            //(A zárójelben lévő LINQ egy int-ekből álló listát ad, mert a Count tulajdonság int típusú.)
-            //Működik a Min(), Max(), Average(), stb. is.
-
-            //c. A legrégebbi kereskedési nap:
-            DateTime minDátum = (from x in ticks select x.TradingDay).Min();
-
-            //d. A legutolsó kereskedési nap:
-            DateTime maxDátum = (from x in ticks select x.TradingDay).Max();
-
-            //e. A két dátum közt eltelt idő napokban -- két DateTime típusú objektum különbsége TimeSpan típusú eredményt ad.
-            //A TimeSpan Day tulajdonsága megadja az időtartam napjainak számát. (Nem kell vacakolni a szökőévekkel stb.)
-            int elteltNapokSzáma = (maxDátum - minDátum).Days;
-
-            //f. Az OTP legrégebbi kereskedési napja: 
-            DateTime optMinDátum = (from x in ticks where x.Index == "OTP" select x.TradingDay).Min();
-
-            //g. Össze is lehet kapcsolni dolgokat, ez már bonyolultabb:
-            var kapcsolt =
-                from
-                x in ticks
-                join
-                y in portfoliolista
-                on x.Index equals y.index
-                select new
-                {
-                    Index = x.Index,
-                    Date = x.TradingDay,
-                    Value = x.Price,
-                    Volume = y.volume
-                };
-            dataGridView1.DataSource = kapcsolt.ToList();
-
+          
 
 
             List<decimal> Nyereségek = new List<decimal>();
