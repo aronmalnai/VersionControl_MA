@@ -26,7 +26,7 @@ namespace week05
             CreatePortfolio();
             ticks = context.Ticks.ToList(); // A context-et bele rakjuk a ticks listába
                                             //a. Portfóliónk elemszáma:
-          
+
 
 
             List<decimal> Nyereségek = new List<decimal>();
@@ -50,6 +50,35 @@ namespace week05
                             .ToList();
             MessageBox.Show(nyereségekRendezve[nyereségekRendezve.Count() / 5].ToString());
             nyer = nyereségekRendezve;
+
+            baloldaligridView();
+
+        }
+
+        private void baloldaligridView()
+        {
+            int elemszam = portfoliolista.Count();
+            decimal reszvenyekszama = (from x in portfoliolista select x.volume).Sum();
+            MessageBox.Show(string.Format("Részvények száma: {0}", reszvenyekszama));
+            DateTime legregebbi = (from x in ticks select x.TradingDay).Min();
+            DateTime legujaabb = (from x in ticks select x.TradingDay).Max();
+            int elteltnapokszam = (legregebbi - legujaabb).Days;
+            var MinDateOtp = (from x in ticks where x.Index == "OTP" select x.TradingDay).Min();
+            var kapcsolt = from x in ticks
+                           join y in portfoliolista on x.Index equals y.index
+                           select new
+                           {
+                               Index = x.Index,
+                               Date = x.TradingDay,
+                               Value = x.Price,
+                               Volume = y.volume
+
+                           };
+
+            dataGridView1.DataSource = kapcsolt.ToList();
+
+
+
         }
 
         private void CreatePortfolio()

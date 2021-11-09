@@ -11,6 +11,7 @@ using week06.MNBServiceReference;
 using week06.Entites;
 using System.Xml;
 using System.Windows.Forms.DataVisualization.Charting;
+using System.IO;
 
 namespace week06
 {
@@ -49,6 +50,7 @@ namespace week06
             }
 
             comboBox1.DataSource = currencies;
+            File.WriteAllText("result.xml", result);
 
 
         }
