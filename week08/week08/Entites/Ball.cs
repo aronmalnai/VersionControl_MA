@@ -5,39 +5,20 @@ using System.Windows.Forms;
 using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
+using week08.Abstractions;
 
 namespace week08.Entites
 {
-    public class Ball : Label
+    public class Ball : Toy
     {
-        public Ball()
-
-        {
-            AutoSize = false;
-            Height = 50;
-            Width = 50;
-            Paint += Ball_Paint;
-
-
-        }
-
-        private void Ball_Paint(object sender, PaintEventArgs e)
-        {
-            DrawImage(e.Graphics);
-        }
-
-        public void DrawImage(Graphics grafika)
+      
+        public override void DrawImage(Graphics grafika)
         {
 
             grafika.FillEllipse(new SolidBrush(Color.Turquoise), 0, 0, Width, Height);
 
         
         }
-        public void MoveBall()
-        {
-            Left += 1   ;
-
-
-        }
+      
     }
 }
