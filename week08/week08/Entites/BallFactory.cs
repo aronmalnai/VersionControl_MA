@@ -9,10 +9,10 @@ namespace week08.Entites
 {
     class BallFactory : IToyFactory
     {
-
+        public Color Ballcolor { get; set; }
         public Toy CreateNew()
         {
-            Ball b = new Ball();
+            Ball b = new Ball(Ballcolor);
             return b;
 
             //return new Ball ez egyszrűbben
