@@ -15,12 +15,12 @@ namespace week08
     {
         List<Ball> _balls = new List<Ball>();
         private BallFactory _factory; // Ez micsoda? 
-        public BallFactory Factory
+        private BallFactory Factory
         {
             get { return _factory; }
             set { _factory = value; }
         }
-
+       
         public Form1()
         {
             InitializeComponent();
