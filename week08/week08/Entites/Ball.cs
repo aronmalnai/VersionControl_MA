@@ -11,14 +11,23 @@ namespace week08.Entites
 {
     public class Ball : Toy
     {
-      
+        public SolidBrush BallColor { get; private set; }
         public override void DrawImage(Graphics grafika)
         {
 
-            grafika.FillEllipse(new SolidBrush(Color.Turquoise), 0, 0, Width, Height);
+            grafika.FillEllipse(BallColor, 0, 0, Width, Height);
 
-        
+
         }
-      
+        public Ball(Color c)
+        {
+            SolidBrush sb = new SolidBrush(c);
+            sb = BallColor;
+
+
+
+
+        }
+
     }
 }
