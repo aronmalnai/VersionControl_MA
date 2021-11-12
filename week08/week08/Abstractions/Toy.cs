@@ -29,7 +29,7 @@ namespace week08.Abstractions
         public abstract void DrawImage(Graphics grafika);
         
 
-        public void ToyBall()
+        public void MoveToy()
         {
             Left += 1;
 

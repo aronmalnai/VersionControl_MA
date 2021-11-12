@@ -22,7 +22,7 @@ namespace week08.Entites
         public Ball(Color c)
         {
             SolidBrush sb = new SolidBrush(c);
-            sb = BallColor;
+            BallColor = sb;
 
 
 

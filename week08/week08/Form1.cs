@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using week08.Abstractions;
 using week08.Entites;
 
+
 namespace week08
 {
     public partial class Form1 : Form
@@ -17,53 +18,56 @@ namespace week08
         List<Toy> _toys = new List<Toy>();
         private Toy _netToy;
         private IToyFactory _factory; // Ez micsoda? 
-        
+
         private IToyFactory Factory
         {
             get { return _factory; }
-            set { _factory = value;
+            set
+            {
+                _factory = value;
                 Display();
             }
         }
-       
+
         public Form1()
         {
             InitializeComponent();
-            Factory = new BallFactory();
+            Factory = new BallFactory { Ballcolor = Color.Blue };
             label1.Text = "Coming Next";
             button1.Text = "CAR";
             button2.Text = "BALL";
 
-            
-            
+
+
         }
 
         private void createTimer_Tick(object sender, EventArgs e)
         {
-            var Toy = Factory.CreateNew();
-            _toys.Add(Toy);
+            var newToy = Factory.CreateNew();
+            _toys.Add(newToy);
 
-            Toy.Left = -1 * Toy.Width;
-            mainPanel.Controls.Add(Toy);
+            newToy.Left = -1 * newToy.Width;
+            mainPanel.Controls.Add(newToy);
         }
 
         private void conveyorTimer_Tick(object sender, EventArgs e)
         {
             var maxposition = 0;
-            foreach (var Toy in _toys)
+            foreach (var newToy in _toys)
             {
-                Toy.MoveToy();
-                if (Toy.Left > maxposition)
+                newToy.MoveToy();
+                if (newToy.Left > maxposition)
                 {
-                    maxposition = Toy.Left;
+                    maxposition = newToy.Left;
                 }
 
             }
             if (maxposition > 1000)
             {
                 var elso = _toys[0];
-                _toys.Remove(elso);
                 mainPanel.Controls.Remove(elso);
+                _toys.Remove(elso);
+                
             }
         }
 
@@ -78,41 +82,80 @@ namespace week08
             {
                 Ballcolor = button3.BackColor
 
-        };
-            
+            };
+
         }
 
 
         private void Display()
         {
-            if (_netToy !=null)
-            {
+            if (_netToy != null)
                 Controls.Remove(_netToy);
-                _netToy = Factory.CreateNew();
-                _netToy.Left = label1.Left + 20;
-                _netToy.Top = label1.Top + 10;
+            _netToy = Factory.CreateNew();
+            _netToy.Top = label1.Top + label1.Height + 20;
+            _netToy.Left = label1.Left;
+            Controls.Add(_netToy);
 
 
-                Controls.Add(_netToy);
-                
-            }
-        
-        
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
-            button3.BackColor = Color.Fuchsia;
+           
             var button = (Button)sender;
             ColorDialog crd = new ColorDialog();
-            crd.Color = button3.BackColor;
-            if (crd.ShowDialog()!= DialogResult.OK)
+            crd.Color = button.BackColor;
+            if (crd.ShowDialog() != DialogResult.OK)
             {
                 return;
             }
             else
             {
-                button3.BackColor = crd.Color;
+                button.BackColor = crd.Color;
+            }
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            Factory = new PresentFactory
+            {
+                color1 = button5.BackColor,
+                color2 = button6.BackColor
+                
+
+
+            };
+
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            
+            var button = (Button)sender;
+            ColorDialog crd = new ColorDialog();
+            crd.Color = button.BackColor;
+            if (crd.ShowDialog() != DialogResult.OK)
+            {
+                return;
+            }
+            else
+            {
+                button.BackColor = crd.Color;
+            }
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            var button = (Button)sender;
+            ColorDialog crd = new ColorDialog();
+            crd.Color = button.BackColor;
+            if (crd.ShowDialog() != DialogResult.OK)
+            {
+                return;
+            }
+            else
+            {
+                button.BackColor = crd.Color;
             }
         }
     }
