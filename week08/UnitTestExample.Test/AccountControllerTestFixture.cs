@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using UnitTestExample.Controllers;
 
@@ -25,9 +26,6 @@ namespace UnitTestExample.Test
             var actualResult = accountController.ValidateEmail(email);
             Assert.AreEqual(expectedResult, actualResult);
 
-
-
-
         }
 
 
@@ -38,25 +36,38 @@ namespace UnitTestExample.Test
     {
         [Test,
            TestCase("Password", false),
-            TestCase("ASAP",false),
-            TestCase("password",false ),
+            TestCase("ASAP", false),
+            TestCase("password", false),
             TestCase("alma", false),
-            TestCase("TokeleteSjelszO@1234_",true)
+            TestCase("TokeleteSjelszO@1234_", true)
 
-            
+
             ]
-        public void TestValidatePassword(string password, bool expextedResult)
+        public Match TestValidatePassword(string password, bool expextedResult)
         {
-            var accountController = new AccountController();
-            var actualResult = accountController.ValidatePassword(password);
-            Assert.AreEqual(expextedResult, actualResult);
-            
 
-
-
+            Regex rgx = new Regex(@"^(.{8}|[0-9] + [A-Z] + [a-z])$");
+            return rgx.Match(password);
 
         }
-    
-    
+
+        [Test,
+            TestCase("irf@uni-corvinus.hu", "TokeleteSjelszO@1234_"), // miért nem kell ,hogy true vagy false?
+
+
+            ]
+        public void TestRegisterHappyPath(string email, string password)
+        {
+            var ac = new AccountController();
+            var actualResult = ac.Register(email, password);
+            Assert.AreEqual(email, actualResult.Email);
+            Assert.AreEqual(password, actualResult.Password);
+
+            Assert.AreEqual(Guid.Empty, actualResult.ID);
+
+        
+        
+        
+        }
     }
 }
