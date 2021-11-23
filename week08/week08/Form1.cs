@@ -25,7 +25,7 @@ namespace week08
             set
             {
                 _factory = value;
-                Display();
+                DisplayNext();
             }
         }
 
@@ -87,7 +87,7 @@ namespace week08
         }
 
 
-        private void Display()
+        private void DisplayNext()
         {
             if (_netToy != null)
                 Controls.Remove(_netToy);

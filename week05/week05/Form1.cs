@@ -89,7 +89,7 @@ namespace week05
             portfoliolista.Add(new PortfolioItem() { index = "ELMU", volume = 10 });
 
             dataGridView2.DataSource = portfoliolista;
-
+          
 
         }
 

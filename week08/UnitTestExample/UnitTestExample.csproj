@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{2D339416-23D0-4EB1-A96F-7208F6836CA9}</ProjectGuid>
+    <ProjectGuid>{F1FBDBB6-FEBA-421B-A647-484ED380E500}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>week08</RootNamespace>
-    <AssemblyName>week08</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <RootNamespace>UnitTestExample</RootNamespace>
+    <AssemblyName>UnitTestExample</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
@@ -34,6 +34,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Activities" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -46,22 +47,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Entites\CarFactory.cs" />
-    <Compile Include="Abstractions\IToyFactory.cs" />
-    <Compile Include="Abstractions\Toy.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Entites\Ball.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Entites\BallFactory.cs" />
-    <Compile Include="Entites\Car.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Entites\Present.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Entites\PresentFactory.cs" />
+    <Compile Include="Abstractions\IAccountManager.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Entities\Account.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -70,6 +58,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\AccountManager.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
@@ -94,11 +83,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Images\car.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

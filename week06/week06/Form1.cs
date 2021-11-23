@@ -43,12 +43,16 @@ namespace week06
             MessageBox.Show(result);
             XmlDocument xml = new XmlDocument();
             xml.LoadXml(result);
+            
             foreach (XmlElement item in xml.DocumentElement.ChildNodes[0])
             {
+                //var childnotes = (XmlElement)item.ChildNodes[0];
+                //string curr2 = childnotes.GetAttribute("curr"); Ez a másik verzió
                 string curr = item.InnerText;
                 currencies.Add(curr);    
             }
 
+ 
             comboBox1.DataSource = currencies;
             File.WriteAllText("result.xml", result);
 
@@ -97,12 +101,14 @@ namespace week06
             foreach (XmlElement item in xml.DocumentElement)
             {
                 RateData rd = new RateData(); //létrehoztunk egy példányt
+                
                 rd.date = DateTime.Parse(item.GetAttribute("date"));
                 var child = (XmlElement)item.ChildNodes[0];
                 if (child == null)
                     continue;
-                rd.currency = child.GetAttribute("curr");
-                
+                //rd.currency = child.GetAttribute("curr");
+                rd.currency = ((XmlElement)item.ChildNodes[0]).GetAttribute("curr");
+
                 if (decimal.Parse(child.GetAttribute("unit")) != 0)
                     rd.value = decimal.Parse(child.InnerText) / decimal.Parse(child.GetAttribute("unit"));
 
