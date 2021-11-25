@@ -99,12 +99,12 @@ namespace UnitTestExample.Test
             {
                 // Act
                 var actualResult = ac.Register(email, password);
-                
+                Assert.Fail();
 
             }
             catch (Exception ex)
             {
-                Assert.Fail(ex.Message);
+                
                 Assert.IsInstanceOf<ValidationException>(ex); //Ezt miért csináljuk?
 
             }
