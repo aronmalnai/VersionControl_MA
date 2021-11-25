@@ -1,11 +1,7 @@
 ﻿using NUnit.Framework;
 using System;
 using System.Activities;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using UnitTestExample.Controllers;
 
 namespace UnitTestExample.Test
@@ -34,30 +30,33 @@ namespace UnitTestExample.Test
         }
 
 
-    }
 
 
-    public class AccountControllerRegister //nem találom a követelményeket
-    {
         [Test,
-           TestCase("Password", false),
-            TestCase("ASAP", false),
-            TestCase("password", false),
-            TestCase("alma", false),
-            TestCase("TokeleteSjelszO@1234_", true)
+           TestCase("Password", false), //nincs szam
+            TestCase("ASAP", false), //nincs kisbetű 
+            TestCase("password", false), //nincs nagybetű
+            TestCase("psw", false), //túl rövid
+            TestCase("Password12345", true)
 
 
             ]
-        public Match TestValidatePassword(string password)
-        {
 
-            Regex rgx = new Regex(@"^(.{8,}|[0-9] + [A-Z] + [a-z])$");
-            return rgx.Match(password);
+        public void TestValidatePassword(string password, bool expectedResult)
+        {
+            // Arrange
+            var accountController = new AccountController();
+
+            // Act
+            var actualResult = accountController.ValidatePassword(password);
+
+            // Assert
+            Assert.AreEqual(expectedResult, actualResult);
 
 
         }
 
-
+     
 
 
 
@@ -83,12 +82,15 @@ namespace UnitTestExample.Test
 
 
 
-        [Test,
+        [
+          Test,
           TestCase("irf@uni-corvinus", "Abcd1234"),
-            TestCase("irf.uni-corvinus.hu", "Abcd1234"),
-            TestCase("irf@uni-corvinus.hu", "abcd1234"),
-            TestCase("irf@uni-corvinus.hu", "ABCD1234"),
-            ]
+          TestCase("irf.uni-corvinus.hu", "Abcd1234"),
+          TestCase("irf@uni-corvinus.hu", "abcd1234"),
+          TestCase("irf@uni-corvinus.hu", "ABCD1234"),
+          TestCase("irf@uni-corvinus.hu", "abcdABCD"),
+          TestCase("irf@uni-corvinus.hu", "Ab1234"),
+      ]
         public void TestRegisterValidateException(string email, string password)
         {
             // Arrange
@@ -97,12 +99,12 @@ namespace UnitTestExample.Test
             {
                 // Act
                 var actualResult = ac.Register(email, password);
+                
 
-                Assert.Fail();
             }
             catch (Exception ex)
             {
-
+                Assert.Fail(ex.Message);
                 Assert.IsInstanceOf<ValidationException>(ex); //Ezt miért csináljuk?
 
             }
