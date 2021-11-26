@@ -52,23 +52,8 @@ namespace UnitTestExample.Controllers
         public bool ValidatePassword(string password)
         {
 
-            //Regex rgx = new Regex(@"(.{8,}|[0-9] + [A-Z] + [a-z])");
-            //return rgx.IsMatch(password);
-
-            var low = new Regex(@"[a-z]+");
-            var upper = new Regex(@"[A-Z]+");
-            var number = new Regex(@"[0-9]+");
-            var minchar = new Regex(@".{8,}");
-            return low.IsMatch(password) && upper.IsMatch(password) &&
-                number.IsMatch(password) && minchar.IsMatch(password);
-
-
-            //var karkaterek = new Regex(@"[a-z]+ [A-Z] + [0-9]+");
-            //var minchar = new Regex(@".{8,}");
-            //return karkaterek.IsMatch(password) && minchar.IsMatch(password);
-
-
-
+            Regex rgx = new Regex(@"^.{8,}[0-9a-zA-B]$");
+            return rgx.IsMatch(password);
 
 
         }

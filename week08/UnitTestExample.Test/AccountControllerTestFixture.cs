@@ -61,7 +61,7 @@ namespace UnitTestExample.Test
 
 
         [Test,
-            TestCase("irf@uni-corvinus.hu", "TokeleteSjelszO@1234_"), // miért nem kell ,hogy true vagy false?
+            TestCase("irf@uni-corvinus.hu", "TokeleteSjelszO1234"), 
 
 
             ]
@@ -76,7 +76,7 @@ namespace UnitTestExample.Test
             // Assert
             Assert.AreEqual(email, actualResult.Email);
             Assert.AreEqual(password, actualResult.Password);
-            Assert.AreEqual(Guid.Empty, actualResult.ID);
+            Assert.AreNotEqual(Guid.Empty, actualResult.ID);
         }
 
 
@@ -105,7 +105,7 @@ namespace UnitTestExample.Test
             catch (Exception ex)
             {
                 
-                Assert.IsInstanceOf<ValidationException>(ex); //Ezt miért csináljuk?
+                Assert.IsInstanceOf<ValidationException>(ex); 
 
             }
             // Assert
