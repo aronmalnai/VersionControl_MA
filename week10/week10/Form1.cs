@@ -33,17 +33,33 @@ namespace week10
                 for (int i = 0; i < Population.Count; i++)
                 {
 
-                    var male = (from a in Population where a.Gender == Gender.Male && a.IsAlive == true select a).Count(); //miért nem tudom listává alakítani?
-                    var female = (from b in Population where b.Gender == Gender.Female && b.IsAlive == true select b).Count();
-                    Console.WriteLine(String.Format("{0},{1},{2}", y,male,female));
-                   
+                    SimStep();
+
                 }
 
+                var male = (from a in Population where a.Gender == Gender.Male && a.IsAlive == true select a).Count(); //miért nem tudom listává alakítani?
+                var female = (from b in Population where b.Gender == Gender.Female && b.IsAlive == true select b).Count();
+                Console.WriteLine(String.Format("{0},{1},{2}", y, male, female));
             }
-            
+
         }
 
+        public void SimStep(int year, Person person)
+        {
+
+            if (person.IsAlive == false)
+            {
+                return;
+            }
+
+            
+            var age = year - person.BirthYear;
+            var death_p = (from x in DeathProbabilities where x.Gender == person.Gender && x.Age == age select x.Odds).FirstOrDefault();
         
+        
+        }
+
+
 
         private List<Person> ReadPopulation(string csvpath)
         {
@@ -59,8 +75,7 @@ namespace week10
                     //p.IsAlive = bool.Parse(line[3]);
                     Population.Add(p);
    
-                }
-            
+                }          
             
             }
 
@@ -104,21 +119,12 @@ namespace week10
                         Gender = (Gender)Enum.Parse(typeof(Gender), line[0]),
                        Age = int.Parse(line[1]),
                        Odds = double.Parse(line[2])
-                    
-                    
-                    
+                     
                     });
-
-
 
                 }
             
-            
-            
-            
             }
-
-
 
             return DeathProbabilities;
         
