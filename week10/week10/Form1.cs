@@ -28,11 +28,7 @@ namespace week10
             //Population = ReadPopulation(textBox1.Text);
             BirthProbabilities = ReadBirthP(@"C:\Users\Bela\source\repos\week10_adatok\születés.csv");
             DeathProbabilities = ReadDeathP(@"C:\Users\Bela\source\repos\week10_adatok\halál.csv");
-            dataGridView1.DataSource = Population;
-            dataGridView2.DataSource = BirthProbabilities;
-            dataGridView3.DataSource = DeathProbabilities;
-            Simulation();
-
+      
         }
 
 
@@ -42,7 +38,7 @@ namespace week10
 
             for (int i = 2005; i <= numericUpDown1.Value; i++)
             {
-                richTextBox1.AppendText(String.Format("Szimulációs év : {0} \nFiúk : {1} \nLányok :{2} \n \n", i, male[i - 2005 + 1], female[i - 2005 + 1]));
+                richTextBox1.AppendText(String.Format("Szimulációs év : {0} \nFiúk : {1} \nLányok : {2} \n \n", i, male[i - 2005], female[i - 2005]));
             }
 
 
@@ -60,7 +56,7 @@ namespace week10
 
                 }
 
-                var Nomale = (from a in Population where a.Gender == Gender.Male && a.IsAlive == true select a).Count(); //miért nem tudom listává alakítani?
+                var Nomale = (from a in Population where a.Gender == Gender.Male && a.IsAlive == true select a).Count(); 
                 var Nofemale = (from b in Population where b.Gender == Gender.Female && b.IsAlive == true select b).Count();
                 male.Add(Nomale);
                 female.Add(Nofemale);
@@ -89,7 +85,6 @@ namespace week10
             if (person.Gender == Gender.Female && person.IsAlive )
             {
                 var birth_p = (from z in BirthProbabilities where z.Age == age select z.Odds).FirstOrDefault();
-                double randomszam = rnd.Next(0, 1);
                 if (birth_p > rnd.NextDouble())
                 {
                     Person újp = new Person();               
@@ -104,8 +99,7 @@ namespace week10
                 }
             }
             
-       
-        
+             
         }
 
 
@@ -184,6 +178,7 @@ namespace week10
             string be = textBox1.Text;
             Population = ReadPopulation(be);
             Simulation();
+            DisplayResults();
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -192,9 +187,5 @@ namespace week10
             textBox1.Text = openFileDialog1.FileName;
         }
 
-        private void button3_Click(object sender, EventArgs e)
-        {
-            DisplayResults();
-        }
     }
 }
