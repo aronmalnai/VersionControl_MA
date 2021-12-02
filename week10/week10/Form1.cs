@@ -33,7 +33,7 @@ namespace week10
 
         public void Simulation()
         {
-            for (int y = 2005; y < numericUpDown1.Value; y++)
+            for (int y = 2005; y <= numericUpDown1.Value; y++)
             {
                 for (int i = 0; i < Population.Count; i++)
                 {
@@ -164,6 +164,10 @@ namespace week10
             Simulation();
         }
 
-
+        private void button2_Click(object sender, EventArgs e)
+        {
+            openFileDialog1.ShowDialog();
+            textBox1.Text = openFileDialog1.FileName;
+        }
     }
 }
