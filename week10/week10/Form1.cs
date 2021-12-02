@@ -27,13 +27,18 @@ namespace week10
             dataGridView1.DataSource = Population;
             dataGridView2.DataSource = BirthProbabilities;
             dataGridView3.DataSource = DeathProbabilities;
+            Simulation();
 
-            for (int y = 2005; y < 2025; y++)
+        }
+
+        public void Simulation()
+        {
+            for (int y = 2005; y < numericUpDown1.Value; y++)
             {
                 for (int i = 0; i < Population.Count; i++)
                 {
 
-                    SimStep(y,Population[i]);
+                    SimStep(y, Population[i]);
 
                 }
 
@@ -43,7 +48,6 @@ namespace week10
 
                 Console.WriteLine(String.Format("Év: {0}, Fiúk {1},Lányok {2}", y, male, female));
             }
-
         }
 
         public void SimStep(int year, Person person)
@@ -154,5 +158,12 @@ namespace week10
             return DeathProbabilities;
         
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Simulation();
+        }
+
+
     }
 }
