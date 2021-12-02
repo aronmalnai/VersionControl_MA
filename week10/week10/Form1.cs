@@ -17,11 +17,15 @@ namespace week10
         List<Person> Population = new List<Person>();
         List<BirthProbability> BirthProbabilities = new List<BirthProbability>();
         List<DeathProbability> DeathProbabilities = new List<DeathProbability>();
+        List<int> male = new List<int>();
+        List<int> female = new List<int>();
+  
         Random rnd = new Random(1234);
         public Form1()
         {
             InitializeComponent();
-            Population = ReadPopulation(@"C:\Users\Bela\source\repos\week10_adatok\nép-teszt.csv");
+            
+            //Population = ReadPopulation(textBox1.Text);
             BirthProbabilities = ReadBirthP(@"C:\Users\Bela\source\repos\week10_adatok\születés.csv");
             DeathProbabilities = ReadDeathP(@"C:\Users\Bela\source\repos\week10_adatok\halál.csv");
             dataGridView1.DataSource = Population;
@@ -31,6 +35,20 @@ namespace week10
 
         }
 
+
+
+        public void DisplayResults()
+        {
+
+            for (int i = 2005; i <= numericUpDown1.Value; i++)
+            {
+                richTextBox1.AppendText(String.Format("Szimulációs év : {0} \nFiúk : {1} \nLányok :{2} \n \n", i, male[i - 2005 + 1], female[i - 2005 + 1]));
+            }
+
+
+
+
+        }
         public void Simulation()
         {
             for (int y = 2005; y <= numericUpDown1.Value; y++)
@@ -42,11 +60,13 @@ namespace week10
 
                 }
 
-                var male = (from a in Population where a.Gender == Gender.Male && a.IsAlive == true select a).Count(); //miért nem tudom listává alakítani?
-                var female = (from b in Population where b.Gender == Gender.Female && b.IsAlive == true select b).Count();
+                var Nomale = (from a in Population where a.Gender == Gender.Male && a.IsAlive == true select a).Count(); //miért nem tudom listává alakítani?
+                var Nofemale = (from b in Population where b.Gender == Gender.Female && b.IsAlive == true select b).Count();
+                male.Add(Nomale);
+                female.Add(Nofemale);
 
 
-                Console.WriteLine(String.Format("Év: {0}, Fiúk {1},Lányok {2}", y, male, female));
+                Console.WriteLine(String.Format("Év: {0}, Fiúk {1},Lányok {2}", y, Nomale, Nofemale));
             }
         }
 
@@ -161,6 +181,8 @@ namespace week10
 
         private void button1_Click(object sender, EventArgs e)
         {
+            string be = textBox1.Text;
+            Population = ReadPopulation(be);
             Simulation();
         }
 
@@ -168,6 +190,11 @@ namespace week10
         {
             openFileDialog1.ShowDialog();
             textBox1.Text = openFileDialog1.FileName;
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            DisplayResults();
         }
     }
 }
