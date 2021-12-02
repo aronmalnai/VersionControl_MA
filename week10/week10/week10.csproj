@@ -46,7 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Entities\BirthProhability.cs" />
+    <Compile Include="Entities\BirthProbability.cs" />
     <Compile Include="Entities\DeathProbability.cs" />
     <Compile Include="Entities\Gender.cs" />
     <Compile Include="Entities\Person.cs" />

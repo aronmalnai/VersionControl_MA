@@ -21,9 +21,9 @@ namespace week10
         public Form1()
         {
             InitializeComponent();
-            Population = ReadPopulation(@"C:\Users\Bela\source\repos\VersionControl_MA\week10\nép-teszt.csv");
-            BirthProbabilities = ReadBirthP(@"C:\Users\Bela\source\repos\VersionControl_MA\week10\születés.csv");
-            DeathProbabilities = ReadDeathP(@"C:\Users\Bela\source\repos\VersionControl_MA\week10\halál.csv");
+            Population = ReadPopulation(@"C:\Users\Bela\source\repos\week10_adatok\nép-teszt.csv");
+            BirthProbabilities = ReadBirthP(@"C:\Users\Bela\source\repos\week10_adatok\születés.csv");
+            DeathProbabilities = ReadDeathP(@"C:\Users\Bela\source\repos\week10_adatok\halál.csv");
             dataGridView1.DataSource = Population;
             dataGridView2.DataSource = BirthProbabilities;
             dataGridView3.DataSource = DeathProbabilities;
@@ -33,13 +33,15 @@ namespace week10
                 for (int i = 0; i < Population.Count; i++)
                 {
 
-                    SimStep();
+                    SimStep(y,Population[i]);
 
                 }
 
                 var male = (from a in Population where a.Gender == Gender.Male && a.IsAlive == true select a).Count(); //miért nem tudom listává alakítani?
                 var female = (from b in Population where b.Gender == Gender.Female && b.IsAlive == true select b).Count();
-                Console.WriteLine(String.Format("{0},{1},{2}", y, male, female));
+
+
+                Console.WriteLine(String.Format("Év: {0}, Fiúk {1},Lányok {2}", y, male, female));
             }
 
         }
@@ -54,8 +56,31 @@ namespace week10
 
             
             var age = year - person.BirthYear;
-            var death_p = (from x in DeathProbabilities where x.Gender == person.Gender && x.Age == age select x.Odds).FirstOrDefault();
-        
+            double death_p = (from x in DeathProbabilities where x.Gender == person.Gender && x.Age == age select x.Odds).FirstOrDefault();
+
+            if (rnd.NextDouble() <= death_p)
+            {
+                person.IsAlive = false;
+            }
+            if (person.Gender == Gender.Female && person.IsAlive )
+            {
+                var birth_p = (from z in BirthProbabilities where z.Age == age select z.Odds).FirstOrDefault();
+                double randomszam = rnd.Next(0, 1);
+                if (birth_p > rnd.NextDouble())
+                {
+                    Person újp = new Person();               
+                    int randomnem = rnd.Next(1, 3);
+                    újp.Gender = (Gender)randomnem;
+                    újp.BirthYear = year;
+                    újp.NoChildren = 0;
+                    újp.IsAlive = true;
+                    Population.Add(újp);
+
+
+                }
+            }
+            
+       
         
         }
 

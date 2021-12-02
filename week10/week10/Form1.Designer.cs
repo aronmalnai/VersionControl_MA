@@ -66,7 +66,7 @@ namespace week10
             // dataGridView4
             // 
             this.dataGridView4.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView4.Location = new System.Drawing.Point(633, 479);
+            this.dataGridView4.Location = new System.Drawing.Point(520, 441);
             this.dataGridView4.Name = "dataGridView4";
             this.dataGridView4.Size = new System.Drawing.Size(240, 150);
             this.dataGridView4.TabIndex = 3;
